@@ -1,9 +1,9 @@
-import localstorageApi from "./localstorage"
+import localstorageApi from "./localstorage";
 import throttle from 'lodash.throttle';
 
-const FEEDBACK_FORM_STATE = "formdate"
-const contactFormEl = document.querySelector('.feedback-form')
-const formDate = {}
+const FEEDBACK_FORM_STATE = "formdate";
+const contactFormEl = document.querySelector('.feedback-form');
+const formDate = {};
 
 const fillContactFormElements = form => {
 
