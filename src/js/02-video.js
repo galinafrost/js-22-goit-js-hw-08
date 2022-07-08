@@ -13,6 +13,8 @@ const onTime = function(event) {
 
 player.on('timeupdate', throttle(onTime, 1000));
 
-if (localstorageApi.load(KEY_TIME_LOCAL_STORAGE)) {
-    player.setCurrentTime(localstorageApi.load(KEY_TIME_LOCAL_STORAGE))
+const saveTime = localstorageApi.load(KEY_TIME_LOCAL_STORAGE)
+
+if (saveTime) {
+    player.setCurrentTime(saveTime)
 }

@@ -3,18 +3,16 @@ import throttle from 'lodash.throttle';
 
 const FEEDBACK_FORM_STATE = "formdate";
 const contactFormEl = document.querySelector('.feedback-form');
-const formDate = {};
 
 const fillContactFormElements = form => {
 
     const formDateFromLocalStorag = localstorageApi.load(FEEDBACK_FORM_STATE)
-    
     const formElemements = form.elements
 
-    for (const key in formDateFromLocalStorag) {
-        if (formDateFromLocalStorag.hasOwnProperty(key)) {
-            formElemements[key].value = formDateFromLocalStorag[key]
-        }
+    const keys = Object.keys(formDateFromLocalStorag)
+
+    for (const key of keys) {
+        formElemements[key].value = formDateFromLocalStorag[key]
     }
 }
 
@@ -22,14 +20,19 @@ fillContactFormElements(contactFormEl)
 
 const onContactFormElInput = event => {
 
-    const { target } = event;
-    const contactFormElValue = target.value;
-    const contactFormElName = target.name;
+    const { name, value } = event.target;
 
-    formDate[contactFormElName] = contactFormElValue
+    let oldDate = localstorageApi.load(FEEDBACK_FORM_STATE)
 
-    localstorageApi.save(FEEDBACK_FORM_STATE, formDate)
+    if (oldDate) {
+        oldDate[name] = value
+    } else {
+        oldDate = {}
+    }
 
+    localstorageApi.save(FEEDBACK_FORM_STATE, oldDate)
+
+    console.log(oldDate);
 }
 
 const onContactFormElSubmit = event => {
